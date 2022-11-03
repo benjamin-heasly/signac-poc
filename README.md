@@ -1,6 +1,13 @@
 # signac-poc
 Proof of concept for working with Python, signac, and Matlab.
 
+This repo contains code and commentary about using signac to do a proof of concept for neural data analysis pipelines that use Matlab and Python.  [Signac](https://signac.io/) is a Python-based tool for managing data and running analysis workflows / pipelines.
+
+This README covers:
+ - Setup for Python, signac, and Matlab
+ - Overview of sample data and analysis pipeline
+ - Musings on pipelines and signac
+
 ## Python Setup
 
 I used conda to manage my Python environment and obtain Python dependencies.  Here's the [conda installation docs](https://conda.io/projects/conda/en/latest/user-guide/install/index.html).
@@ -83,3 +90,43 @@ This tells signac to `run` the analysis that's defined in `pipeline.py`, specifi
  - `find_rising_edges()` -- For each aggregate, use the stats we just computed to look for rising edges in the data, using the precomputed min and max, and an arbitrary threshold between them.  This is a placeholder for things like event detection and spike sorting.  This also happens in Matlab with the script `findRisingEdges.m`.
  - `plot_summary()` -- For each aggregate, load the raw byte data and the detected edges and produce a summary figure.  This happens in Python using `matplotlib`, using analysis results computed in Matlab.  This is an example of integrating Python and Matlab via the file system and the pipeline runner (signac), and avoids extra "bridge" code between the two environments.
 
+## Musings on pipelines and signac
+
+WIP...
+
+This section is about qualities of analysis pipelines that we might want to obtain, or set as goals.  I'll organize these in terms of what signac seems to solve, or what we'd be left implement ourselves.  This is a bit unfair to signac -- which seems like a great project -- but I hope it will make things concrete and focused.
+
+### Things signac solves for us
+
+modular operations -- reusable, swappable, sharable
+integrate steps via file system – durability enables restarts from last completed
+pass data between Matlab and Python steps w/o magic bridge
+iterate a bunch of data files
+query for a result of interest
+aggregate files in groups, by some key function, then process group aggregates
+
+re-run a workflow after minor changes, without recomputing everything
+re-run a workflow after "the power goes out", without recomputing everyting
+
+visualize a workflow before it's run
+visualize workflow progress during and after a run
+
+useful without cloud provider or sys admin
+
+### Things we could implement along with signac
+
+version control and/or reporting of libs used
+capture host system info
+capture logging from each step, and overall
+capture timing around each step, and overall
+
+iterate over things like recording, tower, probe, channel
+
+take advantage of cluster or cloud resources
+
+### Where signac felt in the way or confusing
+share a project with someone else
+clean up generated and/or temp files
+
+process singel files and aggregate results in the same pipeline
+re-run the same signac project on a different dataset of the same type
