@@ -1,8 +1,8 @@
 import os
 import signac
 
-# Create a signac "Data Space" by running this here script: 
 # python init.py
+# Create a signac "Data Space" by running this here script: 
 project = signac.init_project()
 
 # Search the nearby "recordings" directory for session folders and ".bin" files.

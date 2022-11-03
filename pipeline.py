@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-# Analyze our signac Data Space by running this here project on it:
 # python pipeline.py run -o analyze_aggregates
+# Analyze our signac Data Space by running this here project on it:
 recording_aggregator = aggregator.groupby(lambda job: job.doc.group_key, sort_by=lambda job: job.sp.recording_index)
 analyze_aggregates = FlowProject.make_group("analyze_aggregates", group_aggregator=recording_aggregator)
 
@@ -122,8 +122,8 @@ def plot_summary(*jobs):
     fig.savefig(figure_file_path(jobs))
 
 
-# Clean up any analysis results created so we can run fresh:
 # python pipeline.py run -o clean
+# Clean up any analysis results created so we can run fresh:
 session_aggregator = aggregator.groupby("session")
 clean = FlowProject.make_group("clean", group_aggregator=session_aggregator)
 

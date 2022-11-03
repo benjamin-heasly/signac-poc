@@ -127,3 +127,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Matlab
+.asv
+
+# signac
+recordings/
+workspace/
+signac.rc
